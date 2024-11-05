@@ -9,7 +9,8 @@ function App() {
   const [imageLink, setimageLink] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-
+  //Verifica id
+  const [verifyID, setVerifyID] = useState();
 
   //Preparando o arquivo no front
   const handleFileChange = (event) => {
@@ -33,23 +34,46 @@ function App() {
 
   //Preparacao do arquivo para o backend e enviando
   const handleUpload = async() =>{
+
+  //Verifica se o ID já existe
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+  
   if(selectedFile){
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-    const response = await fetch("http://localhost/galeriadefotosteste/uploadimg.php", {
+    //const formData = new FormData();
+    //formData.append('file', selectedFile);
+    const responseId = await fetch("http://localhost/galeriadefotosteste/verificaid.php",{
       method: 'POST',
       body: formData
     });
+  
+    // Aguardando o JSON da resposta
+    const responseDataId = await responseId.json();
+    setVerifyID(responseDataId);
+    console.log(responseDataId);
 
-    const responseData = await response.json();
-    setimageLink(responseData.image_link);
-    setValidateError(responseData.message);
-    console.log(responseData);
-    fileInputRef.current.value = '';
+    if(responseDataId.value === true){
+      setValidateError(responseDataId.message);
+    }else{//Se nao existir o id entao pode fazer o procedimento para inserior no banco de dados
+      const response = await fetch("http://localhost/galeriadefotosteste/uploadimg.php", {
+        method: 'POST',
+        body: formData
+      });
+  
+      const responseData = await response.json();
+      setimageLink(responseData.image_link);
+      setValidateError(responseData.message);
+      console.log(responseData);
+      fileInputRef.current.value = '';
+    }
+    
   }else{
     setValidateError('Por favor selecione um arquivo!')
   }
+    
 }
+
+
   
 
   {/*
