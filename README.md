@@ -31,9 +31,9 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 
 [X] - Verificação no banco de dados se o ID já existe (front e back end)
 
-[ ] - Consumo da API fornecida
+[X] - Consumo da API fornecida
 
-[ ] - Inserção de dados da API fornecida com as informações de ID e URL no banco de dados
+[X] - Inserção de dados da API fornecida com as informações de ID e URL no banco de dados
 
 [ ] - CSS Front End - Esolhendo a biblioteca
 
