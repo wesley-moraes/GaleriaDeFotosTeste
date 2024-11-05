@@ -1,10 +1,60 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef  } from 'react';
 import './App.css';
 
 function App() {
 
-  const [conexao, setConexao] = useState();
+  //Salvar imagem
+  const fileInputRef = useRef(null);
+  const [validationError, setValidateError] = useState(null);
+  const [imageLink, setimageLink] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
+
+
+  //Preparando o arquivo no front
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if(file){
+      const allowedExtension = ['.jpg', ',png'];
+      const selectedFileExtension = file.name.split('.').pop().toLowerCase();
+      if(allowedExtension.includes('.' + selectedFileExtension)){
+        setSelectedFile(file);
+        setValidateError(null)
+      }
+      else{
+        setSelectedFile(null);
+        setValidateError('Selecione um arquivo .jpg ou .png');
+        fileInputRef.current.value = '';
+      }
+    }else{
+
+    }
+  };
+
+  //Preparacao do arquivo para o backend e enviando
+  const handleUpload = async() =>{
+  if(selectedFile){
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    const response = await fetch("http://localhost/galeriadefotosteste/uploadimg.php", {
+      method: 'POST',
+      body: formData
+    });
+
+    const responseData = await response.json();
+    setimageLink(responseData.image_link);
+    setValidateError(responseData.message);
+    console.log(responseData);
+    fileInputRef.current.value = '';
+  }else{
+    setValidateError('Por favor selecione um arquivo!')
+  }
+}
+  
+
+  {/*
+    //Teste de conexao! 
+  const [conexao, setConexao] = useState();
   useEffect(() =>{
     fetch("http://localhost/galeriadefotosteste/conexaodb.php")
     .then(response => response.text())
@@ -15,9 +65,11 @@ function App() {
     .catch(error => console.error("Erro em estabelecer conexao com o banco", error));
   }, []);
 
+  */}
+
   return (
     <div className="App">
-      {conexao}
+      
       <header className='headerGallery'>
         <div>
           <img />
@@ -27,8 +79,11 @@ function App() {
       <main>
         <div className='containerInputImage'>
           <div className='boxSaveImage'>
-            <input type='file'/>
-            <button>Salvar Imagem</button>
+            <input type="file" ref={fileInputRef} onChange={handleFileChange}/>
+            <button onClick={handleUpload}>Salvar</button>
+            {validationError &&(
+              <p>{validationError}</p>
+            )}
           </div>
         </div>
         
