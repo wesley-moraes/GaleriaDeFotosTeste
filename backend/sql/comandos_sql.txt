@@ -1,0 +1,11 @@
+Criação da Base de dados:
+
+CREATE DATABASE galeria_foto
+
+Criação da tabela fotos
+
+CREATE TABLE Fotos(
+	id VARCHAR(10),
+    url VARCHAR(255)
+)
+
