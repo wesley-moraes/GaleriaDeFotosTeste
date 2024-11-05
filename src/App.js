@@ -1,8 +1,23 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [conexao, setConexao] = useState();
+
+  useEffect(() =>{
+    fetch("http://localhost/galeriadefotosteste/conexaodb.php")
+    .then(response => response.text())
+    .then(data =>{
+      setConexao(data);
+      console.log(data);
+    })
+    .catch(error => console.error("Erro em estabelecer conexao com o banco", error));
+  }, []);
+
   return (
     <div className="App">
+      {conexao}
       <header className='headerGallery'>
         <div>
           <img />

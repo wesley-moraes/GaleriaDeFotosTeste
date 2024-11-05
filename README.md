@@ -9,8 +9,9 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 [X] - Criação do banco de dados
 [X] - Disponibilização dos scripts SQL
 [X] - Front End Básico - CSS Rest e esqueleto simples
-[ ] - Preparação Backend (htdocs)
-[ ] - CORS - Disponibilização de arquivo para todos
+[X] - Preparação Backend (htdocs)
+[X] - CORS - Disponibilização de arquivo para todos
+[X] - Backend - Conexão com o Banco dedados
 [ ] - Inserção de foto no banco de dados (front end)
 [ ] - Inserção de foto no banco de dados (backend)
 [ ] - Exibição de mensagens (success or fail)
