@@ -35,15 +35,19 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 
 [X] - Inserção de dados da API fornecida com as informações de ID e URL no banco de dados
 
-[ ] - CSS Front End - Esolhendo a biblioteca
+[X] - CSS Front End - Esolhendo a biblioteca
 
-[ ] - Exibição da minha galeria de imagens de ambas as fontes
+[X] - Exibição da minha galeria de imagens de ambas as fontes
 
-[ ] - Responsividade Tablet
+[X] - Responsividade Tablet
 
-[ ] - Responsividade Smartphones
+[X] - Responsividade Smartphones
 
-[ ] - Galeria finalizada
+[X] - Galeria finalizada
+
+[ ] - Footer
+
+[ ] - Revisão outros compententes Responsivo
 
 [ ] - Revisão Documentação
 
