@@ -14,8 +14,14 @@
         echo ("Falha na conexão: " . $conn->connect_error);
         die(); // Para caso dê algum erro ele pare o código aqui!
     }
+    
+    /*
     else{
-        echo "Deu certo!";
+        echo json_encode([
+            'message' => 'Conexao realizada'
+        ]);
     }
+    */
+    
     
 ?>

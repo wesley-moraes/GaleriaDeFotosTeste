@@ -156,15 +156,19 @@ const Main = () => {
             flex justify-center
             w-full mt-16 mb-16
 
+            
         '>
             <div className='
                 flex items-center flex-col
-                
-                w-4/5
+
+                w-full sm:w-4/5 p-1 sm:p-0 
             '>{/*Container */}
-                <div className='containerInputImage'>
+                <div className='
+                    containerInputImage
+                
+                    '>
                     
-                    <div className='boxSaveImage'>
+                    <div className='boxSaveImage flex flex-col justify-center sm:flex-none sm:flex-row sm:justify-center'>
                         <input type="file" id="file-upload" ref={fileInputRef} onChange={handleFileChange} />
                         <label for="file-upload" class="custom-file-upload ">
                             Adicionar uma nova imagem 
@@ -177,7 +181,7 @@ const Main = () => {
                             />
                         </label>
 
-                        <button className="btn-20" onClick={handleUpload}><span>Salvar</span></button>
+                        <button className="btn-20 mt-4 sm:mt-0" onClick={handleUpload}><span>Salvar</span></button>
                         
                         {validationError && (
                             <p>{validationError}</p>

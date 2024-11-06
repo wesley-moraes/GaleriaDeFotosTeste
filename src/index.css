@@ -100,11 +100,16 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+    text-align: center;
     background-color: #fff;
     border: 1px solid rgb(46, 46, 46);
     border-radius: 10px;
     transition: all .9s;
+    margin-right: 20px;
+
 }
+
+
 
 .custom-file-upload:hover{
     border: 1px solid rgb(0, 6, 85);
@@ -195,8 +200,7 @@ input[type="file"] {
 
 /*Box photo*/
 .boxPhoto{
-    min-width: 33%;
-    min-width: 300px;
+    
     min-height: 250px;
     height: 250px;
     max-height: 250px;
