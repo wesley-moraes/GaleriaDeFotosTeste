@@ -45,7 +45,11 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 
 [X] - Galeria finalizada
 
-[ ] - Footer
+[X] - Resolução de Bug com useEffect() - Loop infinito 
+
+[X] - Footer
+
+[X] - Strict.Mode - Resolvido 
 
 [ ] - Revisão outros compententes Responsivo
 

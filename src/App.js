@@ -7,6 +7,7 @@ import './App.css';
 //importando meu projeto
 import Header from "./frontend/Header";
 import Main from "./frontend/Main";
+import Footer from "./frontend/Footer"
 
 function App() {
 
@@ -16,10 +17,10 @@ function App() {
     <div className="App">
       <Header />
       <Main />
-
-      <footer className='footerGallery'>
-        <p>Todos os direitos reservados</p>
-      </footer>
+      <div className=' w-full self-end'>
+        <Footer />
+      </div>
+      
     </div>
   );
 }

@@ -4,6 +4,14 @@
 
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.App, html, body, #root{
+  height: 100%;
+  width: 100%;
 }
 
 .App-logo {

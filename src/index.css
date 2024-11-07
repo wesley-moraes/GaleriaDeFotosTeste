@@ -1,3 +1,6 @@
+/*Fonts*/
+
+
 /*
 CSS RESET
 */
@@ -83,10 +86,8 @@ background
 }
 
 .textGalleryTitle h1 {
-    font-size: 1.6rem;
     margin-left: 20px;
     color: #fff;
-
 }
 
 
@@ -199,8 +200,8 @@ input[type="file"] {
 }
 
 /*Box photo*/
+
 .boxPhoto{
-    
     min-height: 250px;
     height: 250px;
     max-height: 250px;
@@ -209,8 +210,60 @@ input[type="file"] {
     overflow: hidden;
 }
 
+@media (max-width: 640px) {
+    .headerGalleryBox {
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    .boxPhoto:first-child{
+        max-width: 100%!important;
+    }
+    
+    .boxPhoto:last-child{
+        max-width: 100%!important;
+    }
+
+    .boxPhoto{
+        margin-right: 0px;
+        width: 100%;
+    }
+
+    .custom-file-upload{
+        margin-right: 0px;
+    }
+
+    .textGalleryTitle h1{
+        margin-left: 0px;
+    }
+}
+
+
 .boxPhoto img{
     width: 100%;
     height: 100%;
     object-fit: cover; /* Preenche o container sem distorcer */
 }
+
+/*footer*/
+.footerGallery{
+    background-color: #ccc;
+    height: 100px;
+}
+
+.footerGallery p{
+    margin-left: 20px;
+}
+
+.footerGallery img{
+    margin-right: 20px;
+}
+
+.boxPhoto:first-child{
+    max-width: 45%;
+}
+
+.boxPhoto:last-child{
+    max-width: 45%;
+}
+

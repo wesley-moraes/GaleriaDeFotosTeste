@@ -12,6 +12,9 @@ const Main = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [fileName, setFileName] = useState();
 
+    //Controle para renderizar as imagens novamente
+    const [refresh, setRefresh] = useState(false); 
+
     //Verifica id
     const [verifyID, setVerifyID] = useState();
 
@@ -28,7 +31,7 @@ const Main = () => {
         const file = event.target.files[0];
         if (file) {
             const allowedExtension = ['.jpg', '.png'];
-            
+
             const selectedFileExtension = file.name.split('.').pop().toLowerCase();
             const nameFile = file.name.split('.').shift().toLowerCase();
             setFileName(nameFile);
@@ -79,44 +82,61 @@ const Main = () => {
                 setValidateError(responseData.message);
                 console.log(responseData);
                 fileInputRef.current.value = '';
+
+                //Renderiza o app
+                setRefresh(!refresh);
             }
 
         } else {
-            setValidateError('Por favor selecione um arquivo!')
+            setValidateError('Por favor selecione um arquivo!');
+            return;
         }
 
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("http://localhost/galeriadefotosteste/getdb.php");
+            const data = await response.json();
+            setDadosDB(data);
+        };
+    
+        fetchData();
+    }, [refresh]);
+
     //Consumo da API
     const fetchCatApi = async () => {
-        const response = await fetch("https://api.thecatapi.com/v1/images/search");
-        const data = await response.json();
 
-        setCatApi(data);
-        console.log("catApi:", data);
+            const response = await fetch("https://api.thecatapi.com/v1/images/search");
+            const data = await response.json();
 
-        //Insere no banco de dados
-        const cat = data[0];
-        //console.log("cat" , cat );
-        const newData = {
-            id: cat.id,
-            url: cat.url
-        };
-        console.log("new data: ", newData);
+            setCatApi(data);
+            //console.log("catApi:", data);
 
-        const responseCat = await fetch("http://localhost/galeriadefotosteste/insereCatApi.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newData)
-        });
-        const dataCat = await responseCat.json();
-        console.log("dataCat: ", dataCat);
-        console.log(dataCat.message, "... São eles - id: ", dataCat.id, "e url: ", dataCat.url);
+            //Insere no banco de dados
+            const cat = data[0];
+            //console.log("cat" , cat );
+            const newData = {
+                id: cat.id,
+                url: cat.url
+            };
+            //console.log("new data: ", newData);
 
+            const responseCat = await fetch("http://localhost/galeriadefotosteste/insereCatApi.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newData)
+            });
+            const dataCat = await responseCat.json();
+            console.log("dataCat: ", dataCat);
+            console.log(dataCat.message, "... São eles - id: ", dataCat.id, "e url: ", dataCat.url);
+
+            //Atualiza a pagina
+            setDadosDB(prevDados => [...prevDados, newData]);
     };
-
+    /*
     useEffect(() => {
         //console.log("loaded:" , loaded)
         if (!loaded) { //Desafio com o useEffect renderizando duas vezes.
@@ -126,6 +146,22 @@ const Main = () => {
         }
 
     }, [loaded]);
+    */
+
+    /*
+   useEffect(() =>{
+    if (!loaded) { //Desafio com o useEffect renderizando duas vezes.
+        setLoaded(true);
+    } else {
+        fetchCatApi();
+    }
+   }, []);
+   */
+
+    useEffect(() => { //Busca imagens na API
+        fetchCatApi();
+        setRefresh(!refresh);
+    }, []);
 
     //Get DB - para preencher a galeria
     useEffect(() => {
@@ -134,7 +170,7 @@ const Main = () => {
             .then(data => {
                 setDadosDB(data);
             })
-    });
+    }, []);
 
     {/*
     //Teste de conexao! 
@@ -154,57 +190,57 @@ const Main = () => {
     return (
         <main className='
             flex justify-center
-            w-full mt-16 mb-16
+            w-full mt-8 mb-8 sm:mt-16 sm:mb-16
 
             
         '>
             <div className='
                 flex items-center flex-col
 
-                w-full sm:w-4/5 p-1 sm:p-0 
+                w-full sm:w-4/5 p-3 sm:p-0 
             '>{/*Container */}
                 <div className='
                     containerInputImage
                 
                     '>
-                    
+
                     <div className='boxSaveImage flex flex-col justify-center sm:flex-none sm:flex-row sm:justify-center'>
                         <input type="file" id="file-upload" ref={fileInputRef} onChange={handleFileChange} />
-                        <label for="file-upload" class="custom-file-upload ">
-                            Adicionar uma nova imagem 
-                            <input 
-                                type='text' 
-                                readonly="readonly" 
-                                placeholder="Arquivo"
-                                className='fileName'
-                                value={fileName&& (fileName)}    
+                        <label htmlFor="file-upload" className="custom-file-upload ">
+                            Adicionar uma nova imagem
+                            <input
+                                type='text'
+                                readOnly="readOnly"
+                                placeholder="fotoGallery"
+                                className='fileName text-center sm:text-left'
+                                value={fileName && (fileName)}
                             />
                         </label>
 
                         <button className="btn-20 mt-4 sm:mt-0" onClick={handleUpload}><span>Salvar</span></button>
-                        
+
                         {validationError && (
                             <p>{validationError}</p>
                         )}
-                        
+
                     </div>
                 </div>
 
-                    <div className='
+                <div className='
                     containerGallery
                     flex flex-row flex-wrap justify-between 
-                    w-full mt-16 '>
-                        {dadosDB.map(dados => (
-                            <div className='boxPhoto grow'>
-                                <img src={dados.url} alt={dados.id} />
-                            </div>
+                    w-full mt-10 sm:mt-16 '>
+                    {dadosDB.map(dados => (
+                        <div key={dados.id} className='boxPhoto grow'>
+                            <img src={dados.url} alt={dados.id} />
+                        </div>
 
-                        ))}
+                    ))}
 
 
-                    </div>
                 </div>
-            
+            </div>
+
         </main>
     )
 }
