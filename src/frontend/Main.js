@@ -206,7 +206,7 @@ const Main = () => {
 
                     <div className='boxSaveImage flex flex-col justify-center sm:flex-none sm:flex-row sm:justify-center'>
                         <input type="file" id="file-upload" ref={fileInputRef} onChange={handleFileChange} />
-                        <label htmlFor="file-upload" className="custom-file-upload ">
+                        <label htmlFor="file-upload" className="customFileUpload ">
                             Adicionar uma nova imagem
                             <input
                                 type='text'

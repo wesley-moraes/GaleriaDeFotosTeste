@@ -1,11 +1,19 @@
 /*Fonts*/
+@font-face{
+    font-family: "PoppinsMedium";
+    src: url("./fonts/Poppins-Medium.ttf");
+}
 
+@font-face{
+    font-family: "PoppinsLight";
+    src: url("./fonts/Poppins-Light.ttf");
+}
 
 /*
 CSS RESET
 */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: -apple-system, BlinkMacSystemFont, "PoppinsMedium", 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -88,6 +96,7 @@ background
 .textGalleryTitle h1 {
     margin-left: 20px;
     color: #fff;
+    font-family: "PoppinsLight";
 }
 
 
@@ -96,7 +105,7 @@ input[type="file"] {
     display: none;
 }
 
-.custom-file-upload {
+.customFileUpload {
     border: 1px solid #ccc;
     display: inline-block;
     padding: 6px 12px;
@@ -107,12 +116,14 @@ input[type="file"] {
     border-radius: 10px;
     transition: all .9s;
     margin-right: 20px;
+    font-family: "PoppinsLight";
+    padding-top: 10px;
 
 }
 
 
 
-.custom-file-upload:hover{
+.customFileUpload:hover{
     border: 1px solid rgb(0, 6, 85);
     background-color: #ccc;
     transition: all .9s;
@@ -229,7 +240,7 @@ input[type="file"] {
         width: 100%;
     }
 
-    .custom-file-upload{
+    .customFileUpload{
         margin-right: 0px;
     }
 
@@ -249,6 +260,7 @@ input[type="file"] {
 .footerGallery{
     background-color: #ccc;
     height: 100px;
+    font-family: "PoppinsLight";
 }
 
 .footerGallery p{
