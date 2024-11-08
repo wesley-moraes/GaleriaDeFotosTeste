@@ -164,14 +164,6 @@ input[type="file"] {
         text-align: center;
     }
 
-    .boxPhoto:first-child{
-        max-width: 100%!important;
-    }
-    
-    .boxPhoto:last-child{
-        max-width: 100%!important;
-    }
-
     .boxPhoto{
         margin-right: 0px;
         width: 100%;
@@ -185,6 +177,17 @@ input[type="file"] {
         margin-left: 0px;
     }
 }
+
+@media (max-width: 1000px) {
+    .boxPhoto:first-child{
+        max-width: 100%!important;
+    }
+    
+    .boxPhoto:last-child{
+        max-width: 100%!important;
+    }
+}
+
 
 .boxPhoto img{
     width: 100%;
