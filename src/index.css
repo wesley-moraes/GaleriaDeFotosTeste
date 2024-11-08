@@ -57,9 +57,7 @@ html {
     height: 100%;
 }
 
-
-ol,
-ul {
+ol, ul {
     list-style: none;
 }
 
@@ -81,7 +79,6 @@ table {
 /*
 background
 */
-
 
 /*Header*/
 .headerGalleryContainer {
@@ -117,11 +114,8 @@ input[type="file"] {
     transition: all .9s;
     margin-right: 20px;
     font-family: "PoppinsLight";
-    padding-top: 10px;
-
+    padding-top: 15px;
 }
-
-
 
 .customFileUpload:hover{
     border: 1px solid rgb(0, 6, 85);
@@ -261,6 +255,7 @@ input[type="file"] {
     background-color: #ccc;
     height: 100px;
     font-family: "PoppinsLight";
+    margin-bottom: 0px;
 }
 
 .footerGallery p{

@@ -1,6 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 //import { isCompositeComponent } from 'react-dom/test-utils';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+//Alert Toaster
+import AlertToast from './AlertToast';
 
 
 const Main = () => {
@@ -13,18 +18,33 @@ const Main = () => {
     const [fileName, setFileName] = useState();
 
     //Controle para renderizar as imagens novamente
-    const [refresh, setRefresh] = useState(false); 
+    const [refresh, setRefresh] = useState(false);
 
     //Verifica id
     const [verifyID, setVerifyID] = useState();
 
     //Consumo Cat API
     const [catApi, setCatApi] = useState([]);
-    const [loaded, setLoaded] = useState(false); // Estado para verificar se já carregou
 
     //GET dados da base de dados
     const [dadosDB, setDadosDB] = useState([]);
 
+    //Modal Photo
+    const [urlModal, setUrlModal] = useState();
+    const [showModalPhoto, setShowModalPhoto] = useState(false);
+
+    //Toaster
+    const [showToaster, setShowToaster] = useState(false);
+    const [toastMessage, setToastMessage] = useState();
+    const [showToast, setShowToast] = useState(false);
+    const [bgToaster, setBgToaster] = useState();
+    const [titleToaster, setTitleToaster] = useState();
+
+    // Função para mostrar uma mensagem específica
+    const showToastMessage = (message) => {
+        setToastMessage(message);
+        setShowToast(true);
+    };
 
     //Preparando o arquivo no front
     const handleFileChange = (event) => {
@@ -36,15 +56,20 @@ const Main = () => {
             const nameFile = file.name.split('.').shift().toLowerCase();
             setFileName(nameFile);
 
-            console.log("name file: " + nameFile);
+            //console.log("name file: " + nameFile);
             if (allowedExtension.includes('.' + selectedFileExtension)) {
                 setSelectedFile(file);
                 setValidateError(null)
             }
             else {
                 setSelectedFile(null);
-                setValidateError('Selecione um arquivo .jpg ou .png');
+                //setValidateError('Selecione um arquivo .jpg ou .png');
                 fileInputRef.current.value = '';
+                showToastMessage('Selecione um arquivo .jpg ou .png!');
+                setBgToaster('warning');
+                setTitleToaster('Formato de arquivo incorreto!');
+                setShowToaster(true);
+                setFileName('');
             }
         } else {
 
@@ -70,25 +95,39 @@ const Main = () => {
             console.log(responseDataId);
 
             if (responseDataId.value === true) {
-                setValidateError(responseDataId.message);
+                //setValidateError(responseDataId.message);
+                showToastMessage(responseDataId.message);
+                setBgToaster('dark');
+                setTitleToaster('Imagem repetida!');
+                setShowToaster(true);
+                setFileName('');
             } else {//Se nao existir o id entao pode fazer o procedimento para inserior no banco de dados
                 const response = await fetch("http://localhost/galeriadefotosteste/uploadimg.php", {
                     method: 'POST',
                     body: formData
                 });
 
-                const responseData = await response.json();
-                setimageLink(responseData.image_link);
-                setValidateError(responseData.message);
-                console.log(responseData);
+                //const responseData = await response.json();
+                //setimageLink(responseData.image_link);
+                //setValidateError(responseData.message);
+                //console.log(responseData);
                 fileInputRef.current.value = '';
+                showToastMessage('A imagem foi salva e está disponível na galeria');
+                setBgToaster('success');
+                setTitleToaster('Tudo Pronto!');
+                setShowToaster(true);
+                setFileName('');
 
                 //Renderiza o app
                 setRefresh(!refresh);
             }
 
         } else {
-            setValidateError('Por favor selecione um arquivo!');
+            //setValidateError('Por favor selecione um arquivo!');
+            showToastMessage('Por favor selecione um arquivo!');
+            setBgToaster('danger');
+            setTitleToaster('Atençãos!');
+            setShowToaster(true);
             return;
         }
 
@@ -100,65 +139,59 @@ const Main = () => {
             const data = await response.json();
             setDadosDB(data);
         };
-    
+
         fetchData();
     }, [refresh]);
 
     //Consumo da API
     const fetchCatApi = async () => {
 
-            const response = await fetch("https://api.thecatapi.com/v1/images/search");
-            const data = await response.json();
+        const response = await fetch("https://api.thecatapi.com/v1/images/search");
+        const data = await response.json();
 
-            setCatApi(data);
-            //console.log("catApi:", data);
+        setCatApi(data);
+        //console.log("catApi:", data);
 
-            //Insere no banco de dados
-            const cat = data[0];
-            //console.log("cat" , cat );
-            const newData = {
-                id: cat.id,
-                url: cat.url
-            };
-            //console.log("new data: ", newData);
+        //Insere no banco de dados
+        const cat = data[0];
+        //console.log("cat" , cat );
+        const newData = {
+            id: cat.id,
+            url: cat.url
+        };
+        //console.log("new data: ", newData);
 
-            const responseCat = await fetch("http://localhost/galeriadefotosteste/insereCatApi.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newData)
-            });
-            const dataCat = await responseCat.json();
-            console.log("dataCat: ", dataCat);
-            console.log(dataCat.message, "... São eles - id: ", dataCat.id, "e url: ", dataCat.url);
-
-            //Atualiza a pagina
-            setDadosDB(prevDados => [...prevDados, newData]);
-    };
-    /*
-    useEffect(() => {
-        //console.log("loaded:" , loaded)
-        if (!loaded) { //Desafio com o useEffect renderizando duas vezes.
-            setLoaded(true);
-        } else {
-            fetchCatApi();
+        const responseCat = await fetch("http://localhost/galeriadefotosteste/insereCatApi.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newData)
+        });
+        const dataCat = await responseCat.json();
+        if(dataCat.existsCat === true){
+            showToastMessage(dataCat.message);
+            setBgToaster('success');
+            setTitleToaster(dataCat.title);
+            setShowToaster(true);
         }
+        //console.log("dataCat: ", dataCat);
+        //console.log(dataCat.message, "... São eles - id: ", dataCat.id, "e url: ", dataCat.url);
 
-    }, [loaded]);
-    */
+        //Atualiza a pagina
+        setDadosDB(prevDados => [...prevDados, newData]);
+    };
 
-    /*
-   useEffect(() =>{
-    if (!loaded) { //Desafio com o useEffect renderizando duas vezes.
-        setLoaded(true);
-    } else {
-        fetchCatApi();
+    /*Modal ao clicar na imagem */
+    const handleShowModalPhoto = (url) => {
+        setUrlModal(url);
+        setShowModalPhoto(true);
     }
-   }, []);
-   */
 
-    useEffect(() => { //Busca imagens na API
+    const handleClose = () => setShowModalPhoto(false);
+
+    //Busca imagens na API
+    useEffect(() => {
         fetchCatApi();
         setRefresh(!refresh);
     }, []);
@@ -172,28 +205,15 @@ const Main = () => {
             })
     }, []);
 
-    {/*
-    //Teste de conexao! 
-  const [conexao, setConexao] = useState();
-  useEffect(() =>{
-    fetch("http://localhost/galeriadefotosteste/conexaodb.php")
-    .then(response => response.text())
-    .then(data =>{
-      setConexao(data);
-      console.log(data);
-    })
-    .catch(error => console.error("Erro em estabelecer conexao com o banco", error));
-  }, []);
 
-  */}
 
     return (
+
         <main className='
             flex justify-center
             w-full mt-8 mb-8 sm:mt-16 sm:mb-16
-
-            
         '>
+
             <div className='
                 flex items-center flex-col
 
@@ -217,11 +237,7 @@ const Main = () => {
                             />
                         </label>
 
-                        <button className="btn-20 mt-4 sm:mt-0" onClick={handleUpload}><span>Salvar</span></button>
-
-                        {validationError && (
-                            <p>{validationError}</p>
-                        )}
+                        <Button variant="dark" className="mt-4 sm:mt-0" onClick={handleUpload}>Salvar</Button>
 
                     </div>
                 </div>
@@ -230,16 +246,41 @@ const Main = () => {
                     containerGallery
                     flex flex-row flex-wrap justify-between 
                     w-full mt-10 sm:mt-16 '>
-                    {dadosDB.map(dados => (
-                        <div key={dados.id} className='boxPhoto grow'>
-                            <img src={dados.url} alt={dados.id} />
+                    {dadosDB.map(dado => (
+                        <div key={dado.id} className='boxPhoto grow'>
+                            <img
+                                src={dado.url}
+                                alt={dado.id}
+                                onClick={() => handleShowModalPhoto(dado.url)} />
                         </div>
 
                     ))}
 
-
                 </div>
             </div>
+
+            <AlertToast
+                message = {toastMessage}
+                show = {showToast}
+                onClose={() => setShowToast(false)}
+                contextualBg = {bgToaster}
+                titleToaster = {titleToaster}
+            />
+
+            <Modal show={showModalPhoto} onHide={handleClose}>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='flex w-full h-full justify-center items-center'>
+                        <img src={urlModal} />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </main>
     )

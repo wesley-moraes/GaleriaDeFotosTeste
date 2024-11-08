@@ -51,13 +51,24 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 
 [X] - Strict.Mode - Resolvido 
 
-[ ] - Revisão outros compententes Responsivo
+[X] - Revisão outros compententes Responsivo
+
+[X] - Modal para mostrar a foto em tamanho real
+
+[X] - Tratamento de Toast para mensagens
+
+[X] - Últimas revisões 
 
 [ ] - Revisão Documentação
 
+Próximos passos para 
 [ ] - Verificação do tamanho do nome do arquivo (erro que estava dando devido o tamanho do id)
+
 [ ] - Verificar Arquivos que possam ter . no meio do seu nome
 
+[ ] - Componentizar outros elemntos
+
+[ ] - Verificar a ordenação de exibição das imagens na galeria.
 
 ## PHP files
 Para os arquivos PHP, é necessário que estes estejam rodando em algum outro local. Embora disponibilizados aqui, para este projeto, por exemplo, eles estão na pasta htdocs, criados pelo Xampp.
