@@ -1,89 +1,67 @@
-# Galeria de Fotos Teste - Objetctive
+# Galeria de Fotos Teste - Objective
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## About the project
-Página de galeria de fotos responsivo! Com consumo de API e comunicação com o Backend, salvando novas imagens na galeria! Com exibição de Toasters - mensagens customizadas - e ao clicar na imagem, abre-se um Modal para melhor visualização.
+## Sobre o projeto
+Página de galeria de fotos responsiva, com consumo de API e integração completa com o backend, permitindo o salvamento de novas imagens na galeria. Inclui exibição de mensagens "toast" personalizadas para feedback ao usuário, além de um modal para visualização ampliada das fotos.
 
-## Checklist de tarefas para o desenvolvimento
+## Checklist de tarefas de desenvolvimento
 
-[X] - Estruturação do projeto
+- [X] Estruturação do projeto
+- [X] Criação do banco de dados
+- [X] Disponibilização dos scripts SQL
+- [X] Front End Básico - Estrutura e CSS inicial
+- [X] Preparação do backend (htdocs)
+- [X] Configuração de CORS para acesso liberado
+- [X] Conexão com o Banco de Dados (backend)
+- [X] Inserção de foto no banco de dados (frontend e backend)
+- [X] Exibição de mensagens de sucesso ou erro de inserção
+- [X] Revisão da Documentação
+- [X] Customização de dados para inserção no banco de dados (ID e URL)
+- [X] Verificação de duplicidade de ID no banco de dados (frontend e backend)
+- [X] Consumo da API fornecida
+- [X] Inserção de dados da API no banco de dados (ID e URL)
+- [X] Escolha da biblioteca de CSS
+- [X] Exibição de imagens de ambas as fontes na galeria
+- [X] Responsividade para tablets
+- [X] Responsividade para smartphones
+- [X] Finalização da galeria de imagens
+- [X] Resolução de loop infinito no `useEffect()`
+- [X] Adição de Footer
+- [X] Resolução de conflitos com Strict Mode
+- [X] Revisão da responsividade dos componentes
+- [X] Modal para visualização ampliada das fotos
+- [X] Implementação de Toast para feedback do usuário
+- [X] Últimas revisões
+- [X] Revisão final da documentação
+- [X] Projeto finalizado
 
-[X] - Criação do banco de dados
+## Próximos passos
+- [ ] Verificar tamanho do nome dos arquivos para evitar erro no ID
+- [ ] Tratar arquivos que possuam `.` no nome
+- [ ] Componentizar outros elementos
+- [ ] Verificar ordenação da exibição das imagens na galeria
 
-[X] - Disponibilização dos scripts SQL
+## Arquivos PHP
+Os arquivos PHP devem ser executados em um ambiente local, como o XAMPP, sendo localizados na pasta `htdocs`. Eles estão incluídos no projeto para facilitar o entendimento.
 
-[X] - Front End Básico - CSS Rest e esqueleto simples
+## Instruções para rodar o projeto
+1. Certifique-se de que o Node.js está instalado.
+2. Após clonar o repositório, execute `npm install` para instalar as dependências.
+3. Crie o banco de dados utilizando os comandos SQL disponíveis na pasta `SQL`.
+4. No diretório backend, crie uma pasta chamada `uploads` para o armazenamento das imagens (onde os arquivos PHP rodarão).
+5. Para iniciar o projeto, execute `npm start`.
 
-[X] - Preparação Backend (htdocs)
+## Screenshots da Aplicação
 
-[X] - CORS - Disponibilização de arquivo para todos
+### Galeria de Imagens (Home)
 
-[X] - Backend - Conexão com o Banco dedados
+![Home Galeria](https://github.com/wesley-moraes/galeriadefotosteste/blob/main/screenshots/ScreenShot3.png)
 
-[X] - Inserção de foto no banco de dados (front end)
+### Modal para visualização ampliada
 
-[X] - Inserção de foto no banco de dados (backend)
+![Modal Foto](https://github.com/wesley-moraes/galeriadefotosteste/blob/main/screenshots/ScreenShot2.png)
 
-[X] - Exibição de mensagens (success or fail) de inserção
+### Toasts para feedback do usuário
 
-[X] - Revisão Documentação
-
-[X] - Customização de dados para inserção no banco de dados (ID e URL)
-
-[X] - Verificação no banco de dados se o ID já existe (front e back end)
-
-[X] - Consumo da API fornecida
-
-[X] - Inserção de dados da API fornecida com as informações de ID e URL no banco de dados
-
-[X] - CSS Front End - Esolhendo a biblioteca
-
-[X] - Exibição da minha galeria de imagens de ambas as fontes
-
-[X] - Responsividade Tablet
-
-[X] - Responsividade Smartphones
-
-[X] - Galeria finalizada
-
-[X] - Resolução de Bug com useEffect() - Loop infinito 
-
-[X] - Footer
-
-[X] - Strict.Mode - Resolvido 
-
-[X] - Revisão outros compententes Responsivo
-
-[X] - Modal para mostrar a foto em tamanho real
-
-[X] - Tratamento de Toast para mensagens
-
-[X] - Últimas revisões 
-
-[ ] - Revisão Documentação
-
-## Próximos passos 
-[ ] - Verificação do tamanho do nome do arquivo (erro que estava dando devido o tamanho do id)
-
-[ ] - Verificar Arquivos que possam ter . no meio do seu nome
-
-[ ] - Componentizar outros elemntos
-
-[ ] - Verificar a ordenação de exibição das imagens na galeria.
-
-
-## PHP files
-Para os arquivos PHP, é necessário que estes estejam rodando em algum outro local. Embora disponibilizados aqui, para este projeto, por exemplo, eles estão na pasta htdocs, criados pelo Xampp.
-
-## Para rodar o projetos
--> Tenha o Node instalado.
--> Após fazer o clone da aplicação, execute um `npm i` para instalar as depedências
--> Crie um banco de dados com os comandos que já estão disponíveis na pasta SQL
--> Crie uma pasta uploads dentro do diretório de backend(que é onde rodarão seus arquivos PHP)
--> Por fim, execute o projeto em `npm run start`
-
-## Screen Shots da Aplicação
-
-
-
+![Mensagens para o usuário](https://github.com/wesley-moraes/galeriadefotosteste/blob/main/screenshots/ScreenShot1.png)
