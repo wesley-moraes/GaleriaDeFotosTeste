@@ -3,7 +3,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## About the project
-Página de galeria de fotos responsivo! Com consumo de API e comunicação com o Backend, salvando novas imagens na galeria.
+Página de galeria de fotos responsivo! Com consumo de API e comunicação com o Backend, salvando novas imagens na galeria! Com exibição de Toasters - mensagens customizadas - e ao clicar na imagem, abre-se um Modal para melhor visualização.
+
+## Checklist de tarefas para o desenvolvimento
 
 [X] - Estruturação do projeto
 
@@ -61,7 +63,7 @@ Página de galeria de fotos responsivo! Com consumo de API e comunicação com o
 
 [ ] - Revisão Documentação
 
-Próximos passos para 
+## Próximos passos 
 [ ] - Verificação do tamanho do nome do arquivo (erro que estava dando devido o tamanho do id)
 
 [ ] - Verificar Arquivos que possam ter . no meio do seu nome
@@ -70,9 +72,18 @@ Próximos passos para
 
 [ ] - Verificar a ordenação de exibição das imagens na galeria.
 
+
 ## PHP files
 Para os arquivos PHP, é necessário que estes estejam rodando em algum outro local. Embora disponibilizados aqui, para este projeto, por exemplo, eles estão na pasta htdocs, criados pelo Xampp.
 
+## Para rodar o projetos
+-> Tenha o Node instalado.
+-> Após fazer o clone da aplicação, execute um `npm i` para instalar as depedências
+-> Crie um banco de dados com os comandos que já estão disponíveis na pasta SQL
+-> Crie uma pasta uploads dentro do diretório de backend(que é onde rodarão seus arquivos PHP)
+-> Por fim, execute o projeto em `npm run start`
 
-## Available Scripts
+## Screen Shots da Aplicação
+
+
 

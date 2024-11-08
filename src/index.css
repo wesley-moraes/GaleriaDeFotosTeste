@@ -123,79 +123,6 @@ input[type="file"] {
     transition: all .9s;
 }
 
-/*Btn*/
-.btn-20,
-.btn-20 *,
-.btn-20 :after,
-.btn-20 :before,
-.btn-20:after,
-.btn-20:before {
-    border: 0 solid;
-    box-sizing: border-box;
-}
-
-.btn-20 {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-appearance: button;
-    background-color: #000000;
-    background-image: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 100%;
-    font-weight: 600;
-    line-height: 1.5;
-    margin: 0;
-    -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
-    padding: 0;
-    text-transform: uppercase;
-}
-
-.btn-20:disabled {
-    cursor: default;
-}
-
-.btn-20:-moz-focusring {
-    outline: auto;
-}
-
-.btn-20 svg {
-    display: block;
-    vertical-align: middle;
-}
-
-.btn-20 [hidden] {
-    display: none;
-}
-
-.btn-20 {
-    border-radius: 99rem;
-    border-width: 2px;
-    overflow: hidden;
-    padding: 0.5rem 3rem;
-    position: relative;
-}
-
-.btn-20 span {
-    mix-blend-mode: difference;
-}
-
-.btn-20:before {
-    background: #fff;
-    content: "";
-    display: block;
-    height: 100%;
-    left: -100%;
-    position: absolute;
-    top: 0;
-    transform: skew(0deg) translateX(-20%);
-    transition: transform 0.2s ease;
-    width: 120%;
-}
-
-.btn-20:hover:before {
-    transform: skew(45deg) translateX(75%);
-}
-
 .fileName{
     margin-left: 10px;
     border-bottom: 1px solid black;
@@ -213,7 +140,23 @@ input[type="file"] {
     margin-right: 10px;
     margin-bottom: 10px;
     overflow: hidden;
+    cursor: pointer;
+    transition: .3s;
 }
+
+.boxPhoto {
+    /*aspect-ratio: 1;*/ /*Diminui o tamanho das fotos para que todas sejam iguais*/
+    --b: 5px;     /* the border thickness*/
+    --c: #130a8f; /* the color */
+    
+    outline: -2px solid #130a8f;
+    outline-offset: 2px;
+    transition: .3s;
+  }
+ .boxPhoto:hover {
+    outline: var(--b) solid var(--c);
+    transition: .3s;
+  }
 
 @media (max-width: 640px) {
     .headerGalleryBox {
@@ -242,7 +185,6 @@ input[type="file"] {
         margin-left: 0px;
     }
 }
-
 
 .boxPhoto img{
     width: 100%;

@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-//import { isCompositeComponent } from 'react-dom/test-utils';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,8 +11,6 @@ const Main = () => {
 
     //Salvar imagem
     const fileInputRef = useRef(null);
-    const [validationError, setValidateError] = useState(null);
-    const [imageLink, setimageLink] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [fileName, setFileName] = useState();
 
@@ -40,7 +37,7 @@ const Main = () => {
     const [bgToaster, setBgToaster] = useState();
     const [titleToaster, setTitleToaster] = useState();
 
-    // Função para mostrar uma mensagem específica
+    // Component Toaster de Alerts de erros ou falhas
     const showToastMessage = (message) => {
         setToastMessage(message);
         setShowToast(true);
@@ -59,9 +56,7 @@ const Main = () => {
             //console.log("name file: " + nameFile);
             if (allowedExtension.includes('.' + selectedFileExtension)) {
                 setSelectedFile(file);
-                setValidateError(null)
-            }
-            else {
+            } else {
                 setSelectedFile(null);
                 //setValidateError('Selecione um arquivo .jpg ou .png');
                 fileInputRef.current.value = '';
@@ -71,8 +66,6 @@ const Main = () => {
                 setShowToaster(true);
                 setFileName('');
             }
-        } else {
-
         }
     };
 
@@ -92,10 +85,8 @@ const Main = () => {
             // Aguardando o JSON da resposta
             const responseDataId = await responseId.json();
             setVerifyID(responseDataId);
-            console.log(responseDataId);
 
             if (responseDataId.value === true) {
-                //setValidateError(responseDataId.message);
                 showToastMessage(responseDataId.message);
                 setBgToaster('dark');
                 setTitleToaster('Imagem repetida!');
@@ -107,10 +98,6 @@ const Main = () => {
                     body: formData
                 });
 
-                //const responseData = await response.json();
-                //setimageLink(responseData.image_link);
-                //setValidateError(responseData.message);
-                //console.log(responseData);
                 fileInputRef.current.value = '';
                 showToastMessage('A imagem foi salva e está disponível na galeria');
                 setBgToaster('success');
@@ -121,16 +108,13 @@ const Main = () => {
                 //Renderiza o app
                 setRefresh(!refresh);
             }
-
-        } else {
-            //setValidateError('Por favor selecione um arquivo!');
+        } else { //Se não tiver selecionado nenhum arquivo
             showToastMessage('Por favor selecione um arquivo!');
             setBgToaster('danger');
             setTitleToaster('Atençãos!');
             setShowToaster(true);
             return;
         }
-
     }
 
     useEffect(() => {
@@ -139,27 +123,23 @@ const Main = () => {
             const data = await response.json();
             setDadosDB(data);
         };
-
         fetchData();
     }, [refresh]);
 
-    //Consumo da API
+    //Consumo da API dos gatos
     const fetchCatApi = async () => {
 
         const response = await fetch("https://api.thecatapi.com/v1/images/search");
         const data = await response.json();
 
         setCatApi(data);
-        //console.log("catApi:", data);
 
         //Insere no banco de dados
         const cat = data[0];
-        //console.log("cat" , cat );
         const newData = {
             id: cat.id,
             url: cat.url
         };
-        //console.log("new data: ", newData);
 
         const responseCat = await fetch("http://localhost/galeriadefotosteste/insereCatApi.php", {
             method: "POST",
@@ -170,13 +150,11 @@ const Main = () => {
         });
         const dataCat = await responseCat.json();
         if(dataCat.existsCat === true){
-            showToastMessage(dataCat.message);
+            showToastMessage(dataCat.message); /*Trabalhando com mensagens vinda do backend */
             setBgToaster('success');
             setTitleToaster(dataCat.title);
             setShowToaster(true);
         }
-        //console.log("dataCat: ", dataCat);
-        //console.log(dataCat.message, "... São eles - id: ", dataCat.id, "e url: ", dataCat.url);
 
         //Atualiza a pagina
         setDadosDB(prevDados => [...prevDados, newData]);
@@ -187,7 +165,6 @@ const Main = () => {
         setUrlModal(url);
         setShowModalPhoto(true);
     }
-
     const handleClose = () => setShowModalPhoto(false);
 
     //Busca imagens na API
@@ -205,8 +182,6 @@ const Main = () => {
             })
     }, []);
 
-
-
     return (
 
         <main className='
@@ -216,12 +191,10 @@ const Main = () => {
 
             <div className='
                 flex items-center flex-col
-
                 w-full sm:w-4/5 p-3 sm:p-0 
             '>{/*Container */}
                 <div className='
                     containerInputImage
-                
                     '>
 
                     <div className='boxSaveImage flex flex-col justify-center sm:flex-none sm:flex-row sm:justify-center'>
@@ -253,9 +226,7 @@ const Main = () => {
                                 alt={dado.id}
                                 onClick={() => handleShowModalPhoto(dado.url)} />
                         </div>
-
                     ))}
-
                 </div>
             </div>
 

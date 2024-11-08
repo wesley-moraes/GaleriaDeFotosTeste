@@ -15,13 +15,5 @@
         die(); // Para caso dê algum erro ele pare o código aqui!
     }
     
-    /*
-    else{
-        echo json_encode([
-            'message' => 'Conexao realizada'
-        ]);
-    }
-    */
-    
     
 ?>
